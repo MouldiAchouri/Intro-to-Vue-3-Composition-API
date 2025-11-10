@@ -5,7 +5,7 @@ import socksBlueImage from './assets/images/socks_blue.jpeg'
 
 const product = ref('Socks')
 const image = ref(socksGreenImage)
-const inStock = true
+const inStock = false
   
 const details = ref(['50% cotton', '30% wool', '20% polyester'])
 
@@ -36,7 +36,9 @@ const changeImage = (imagePath) => {
   <div class="product-display">
     <div class="product-container">
       <div class="product-image">    
-        <img v-bind:src="image">
+        <img v-bind:src="image"
+        :class="{'out-of-stock-img':!inStock}"
+        >
       </div>
       <div class="product-info">
         <h1>{{ product }}</h1>
@@ -48,13 +50,41 @@ const changeImage = (imagePath) => {
         <div
           v-for="variant in variants"
           :key="variant.id"
+          class="color-circle"
+          :style="{ backgroundColor: variant.color}"
           @mouseover="changeImage(variant.image)"
         >
-          {{ variant.color }}
         </div>
-        <button class="button" @click="addToCart">Add to Cart</button>
+        <button 
+        class="button" 
+        :class="{disabledButton: !inStock}"
+        :disabled="!inStock"
+        @click="addToCart">Add to Cart</button>
         <button class="button" @click="removeToCart">Remove to Cart</button>
       </div>
     </div>
   </div>
 </template>
+
+<style>
+
+.color-circle {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+}
+
+.disabledButton {
+  background-color: #d8d8d8;
+  cursor: not-allowed;
+}
+
+.out-of-stock-img {
+  opacity:0.5
+}
+
+</style>
