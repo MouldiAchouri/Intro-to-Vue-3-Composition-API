@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue'
 import socksGreenImage from '@/assets/images/socks_green.jpeg'
 import socksBlueImage from '@/assets/images/socks_blue.jpeg'
+import ReviewForm from "@/components/ReviewForm.vue";
 
 const props = defineProps({
   premium: {
