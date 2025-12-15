@@ -1,7 +1,6 @@
 <script setup>
 import { ref } from 'vue'
 
-// AJOUT 1 : Déclaration des événements que ce composant peut émettre
 const emit = defineEmits(['review-submitted'])
 
 const name = ref('')
@@ -9,26 +8,23 @@ const review = ref('')
 const rating = ref(null)
 const recommend = ref(null)
 
-// AJOUT 2 : Implémentation de la méthode de soumission
 const onSubmit = () => {
-  // 1. Validation simple (vérifie si les champs obligatoires sont remplis)
   if (name.value === '' || review.value === '' || rating.value === null) {
     alert('La revue est incomplète. Veuillez remplir au moins le nom, le commentaire et la note.')
     return
   }
 
-  // 2. Création de l'objet productReview
+
   let productReview = {
     name: name.value,
     review: review.value,
     rating: rating.value,
-    recommend: recommend.value // Inclut l'info de recommandation (même si l'input n'est pas encore dans le template)
+    recommend: recommend.value
   }
 
-  // 3. Émission de l'événement avec l'objet en paramètre
   emit('review-submitted', productReview)
 
-  // 4. Vider les champs après l'émission (réinitialisation)
+
   name.value = ''
   review.value = ''
   rating.value = null
@@ -70,7 +66,6 @@ const onSubmit = () => {
 </template>
 
 <style scoped>
-/* Assurez-vous d'ajouter ici le style pour .review-form et .radio-container si nécessaire. */
 .review-form {
   display: flex;
   flex-direction: column;
