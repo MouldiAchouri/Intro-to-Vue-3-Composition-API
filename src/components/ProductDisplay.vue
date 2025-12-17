@@ -1,5 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue'
+import ReviewForm from '@/components/ReviewForm.vue'
+import ReviewList from '@/components/ReviewList.vue'
 import socksGreenImage from '@/assets/images/socks_green.jpeg'
 import socksBlueImage from '@/assets/images/socks_blue.jpeg'
 import ReviewForm from "@/components/ReviewForm.vue";
@@ -11,6 +13,8 @@ const props = defineProps({
     required: true
   }
 })
+
+const emit = defineEmits(['add-to-cart'])
 
 const product = ref('Socks')
 const brand = ref('Vue Mastery')
@@ -47,7 +51,9 @@ const shipping = computed(() => {
   }
 })
 
-const addToCart = () => cart.value += 1
+const addToCart = () => {
+  emit('add-to-cart', variants.value[selectedVariant.value].id)
+}
 
 const updateVariant = (index) => {
   selectedVariant.value = index
